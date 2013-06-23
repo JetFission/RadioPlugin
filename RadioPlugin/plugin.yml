@@ -16,3 +16,7 @@ commands:
     description: Send a message on your current frequency
     usage: /r (message)
     aliases: r
+    
+  setEKey:
+    description: Set your radio encryption key. Use "/setekey" clear to clear your encription key.
+    usage: /setEkey (key)
