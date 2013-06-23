@@ -4,8 +4,8 @@ version: 0.1
 author: Lil_Parker
 
 commands:
-  radio setfreq:
+  setfreq:
     description: Set your radio frequency
     
-  radio getfreq:
+  getfreq:
     description: Get your current frequency

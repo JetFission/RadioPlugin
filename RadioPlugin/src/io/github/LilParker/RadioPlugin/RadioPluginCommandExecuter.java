@@ -15,11 +15,15 @@ public class RadioPluginCommandExecuter implements CommandExecutor {
 	}
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args){
-		if(cmd.getName().equalsIgnoreCase("radio setfreq")){
+		if(cmd.getName().equalsIgnoreCase("setfreq")){
 			if(sender instanceof Player){
 				if(args.length == 1){
 					if(((Player) sender).getItemInHand().getTypeId() == plugin.getConfig().getInt("radioitemid")){
 						if(playerFreqs.get(sender.getName()) != null){
+							playerFreqs.put(sender.getName(), Float.parseFloat(args[0]));
+							sender.sendMessage("Your frequency is now " + playerFreqs.get(sender.getName()));
+							return true;
+						}else{
 							playerFreqs.put(sender.getName(), Float.parseFloat(args[0]));
 							sender.sendMessage("Your frequency is now " + playerFreqs.get(sender.getName()));
 							return true;
@@ -38,7 +42,7 @@ public class RadioPluginCommandExecuter implements CommandExecutor {
 				return false;
 			}
 		}
-		if(cmd.getName().equalsIgnoreCase("radio getfreq")){
+		if(cmd.getName().equalsIgnoreCase("getfreq")){
 			if(sender instanceof Player){
 				if(playerFreqs.get(sender.getName()) != null){
 				sender.sendMessage("Your current frequency is " + playerFreqs.get(sender.getName()));
