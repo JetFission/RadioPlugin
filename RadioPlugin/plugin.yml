@@ -1,0 +1,11 @@
+name: RadioPlugin
+main: io.github.LilParker.RadioPlugin.RadioPlugin
+version: 0.1
+author: Lil_Parker
+
+commands:
+  radio setfreq:
+    description: Set your radio frequency
+    
+  radio getfreq:
+    description: Get your current frequency
