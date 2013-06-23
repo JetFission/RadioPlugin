@@ -94,7 +94,7 @@ public class RadioPluginCommandExecuter implements CommandExecutor {
 			if(sender instanceof Player){
 				if(((Player) sender).getItemInHand().getTypeId() == plugin.getConfig().getInt("radioitemid")){
 				if(playerFreqs.get(sender.getName()) != null){
-					String message = "[FREQ: " + playerFreqs.get(sender.getName()) + "] " + sender.getName() + ": ";
+					String message = plugin.getConfig().getString("radiocolor") + "[FREQ: " + playerFreqs.get(sender.getName()) + "] " + sender.getName() + ": ";
 					for(String messagePart : args){
 						message = message + " " + messagePart;
 					}
@@ -113,7 +113,7 @@ public class RadioPluginCommandExecuter implements CommandExecutor {
 										for(String messagePart : args){
 											msg = msg + " " + messagePart;
 										}
-										String scrambledMessage = "[FREQ: " + playerFreqs.get(sender.getName()) + "] " + sender.getName() + ": ";
+										String scrambledMessage = plugin.getConfig().getString("radioencryptedcolor") + "[FREQ: " + playerFreqs.get(sender.getName()) + "] " + sender.getName() + ": ";
 										for(char ch : msg.toCharArray()){
 											if(ch != ' '){
 											int randInt = randGen.nextInt(alphanumeric.length);
