@@ -5,7 +5,6 @@ import java.util.HashMap;
 import org.bukkit.Bukkit;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 
 public class RadioPluginCommandExecuter implements CommandExecutor {
 	
@@ -31,29 +30,34 @@ public class RadioPluginCommandExecuter implements CommandExecutor {
 							return true;
 						}
 					}else{
-						sender.sendMessage("You must have a radio in hand to tune it!");
+						sender.sendMessage("You must have a radio in hand to tune it");
 						return false;
 					}
 				}else{
-					sender.sendMessage("Need 1 argument!");
+					sender.sendMessage("Need 1 argument");
 					return false;
 				}
 				
 			}else{
-				sender.sendMessage("You must be a player!");
+				sender.sendMessage("You must be a player");
 				return false;
 			}
 		}
 		if(cmd.getName().equalsIgnoreCase("getfreq")){
 			if(sender instanceof Player){
-				if(playerFreqs.get(sender.getName()) != null){
-				sender.sendMessage("Your current frequency is " + playerFreqs.get(sender.getName()));
+				if(((Player) sender).getItemInHand().getTypeId() == plugin.getConfig().getInt("radioitemid")){
+					if(playerFreqs.get(sender.getName()) != null){
+						sender.sendMessage("Your current frequency is " + playerFreqs.get(sender.getName()));
+					}else{
+						sender.sendMessage("Your radio isn't tuned to a frequency");
+						return true;
+					}
 				}else{
-					sender.sendMessage("Your radio isn't tuned to a frequency");
-					return true;
+					sender.sendMessage("You must have a radio in your hand to check it's frequency");
+					return false;
 				}
 			}else{
-				sender.sendMessage("You must be a player!");
+				sender.sendMessage("You must be a player");
 				return false;
 			}
 		}
@@ -67,7 +71,7 @@ public class RadioPluginCommandExecuter implements CommandExecutor {
 					}
 					Player[] playerList = Bukkit.getOnlinePlayers();
 					for(Player player : playerList){
-						if(playerFreqs.get(player.getName()) != null && getInvHasRadio(player)){
+						if(playerFreqs.get(player.getName()) != null && player.getInventory().contains(plugin.getConfig().getInt("radioitemid"))){
 							float playerFreq = playerFreqs.get(player.getName());
 							if(playerFreq == playerFreqs.get(sender.getName())){
 								player.sendMessage(message);
@@ -76,25 +80,15 @@ public class RadioPluginCommandExecuter implements CommandExecutor {
 					}
 				}else{
 					sender.sendMessage("Your radio isn't tuned to a frequency");
-					return true;
+					return false;
 				}
 			}else{
-				sender.sendMessage("You must have a radio in your hand to use it!");
-				return true;
-			}
-			}else{
-				sender.sendMessage("You must be a player!");
+				sender.sendMessage("You must have a radio in your hand to use it");
 				return false;
 			}
-		}
-		return false;
-	}
-	
-	private boolean getInvHasRadio (Player player) {
-		ItemStack[] inv = player.getInventory().getContents();
-		for(ItemStack item : inv){
-			if(item.getTypeId() == plugin.getConfig().getInt("radioitemid")){
-				return true;
+			}else{
+				sender.sendMessage("You must be a player");
+				return false;
 			}
 		}
 		return false;
