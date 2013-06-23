@@ -9,3 +9,7 @@ commands:
     
   getfreq:
     description: Get your current frequency
+    
+  radio:
+    description: Send a message on your current frequency
+    aliases: r
