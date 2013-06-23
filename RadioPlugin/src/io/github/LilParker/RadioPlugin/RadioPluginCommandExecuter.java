@@ -20,18 +20,17 @@ public class RadioPluginCommandExecuter implements CommandExecutor {
 			if(sender instanceof Player){
 				if(args.length == 1){
 					if(((Player) sender).getItemInHand().getTypeId() == plugin.getConfig().getInt("radioitemid")){
-						if(playerFreqs.get(sender.getName()) != null){
+						if(testParse(args[0])){
 							playerFreqs.put(sender.getName(), Float.parseFloat(args[0]));
 							sender.sendMessage("Your frequency is now " + playerFreqs.get(sender.getName()));
 							return true;
 						}else{
-							playerFreqs.put(sender.getName(), Float.parseFloat(args[0]));
-							sender.sendMessage("Your frequency is now " + playerFreqs.get(sender.getName()));
-							return true;
+							sender.sendMessage("Invalid frequency");
+							return false;
 						}
 					}else{
 						sender.sendMessage("You must have a radio in hand to tune it");
-						return false;
+						return true;
 					}
 				}else{
 					sender.sendMessage("Need 1 argument");
@@ -48,13 +47,14 @@ public class RadioPluginCommandExecuter implements CommandExecutor {
 				if(((Player) sender).getItemInHand().getTypeId() == plugin.getConfig().getInt("radioitemid")){
 					if(playerFreqs.get(sender.getName()) != null){
 						sender.sendMessage("Your current frequency is " + playerFreqs.get(sender.getName()));
+						return true;
 					}else{
 						sender.sendMessage("Your radio isn't tuned to a frequency");
 						return true;
 					}
 				}else{
 					sender.sendMessage("You must have a radio in your hand to check it's frequency");
-					return false;
+					return true;
 				}
 			}else{
 				sender.sendMessage("You must be a player");
@@ -78,13 +78,14 @@ public class RadioPluginCommandExecuter implements CommandExecutor {
 							}
 						}
 					}
+					return true;
 				}else{
 					sender.sendMessage("Your radio isn't tuned to a frequency");
-					return false;
+					return true;
 				}
 			}else{
 				sender.sendMessage("You must have a radio in your hand to use it");
-				return false;
+				return true;
 			}
 			}else{
 				sender.sendMessage("You must be a player");
@@ -92,5 +93,13 @@ public class RadioPluginCommandExecuter implements CommandExecutor {
 			}
 		}
 		return false;
+	}
+	private boolean testParse (String str) {
+		try{
+			Float.parseFloat(str);
+			return true;
+		}catch(NumberFormatException nfe){
+			return false;
+		}
 	}
 }

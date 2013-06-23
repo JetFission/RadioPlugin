@@ -1,15 +1,18 @@
 name: RadioPlugin
 main: io.github.LilParker.RadioPlugin.RadioPlugin
 version: 0.1
-author: Lil_Parker
+authors: [Lil_Parker, Jet_Fusion]
 
 commands:
   setfreq:
     description: Set your radio frequency
+    usage: /sefreq (frequency)
     
   getfreq:
     description: Get your current frequency
+    usage: /getfreq
     
   radio:
     description: Send a message on your current frequency
+    usage: /r (message)
     aliases: r
