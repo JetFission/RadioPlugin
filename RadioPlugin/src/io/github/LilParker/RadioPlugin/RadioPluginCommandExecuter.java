@@ -10,14 +10,15 @@ import org.bukkit.entity.Player;
 public class RadioPluginCommandExecuter implements CommandExecutor {
 	
 	RadioPlugin plugin;
-	public HashMap<String, Float> playerFreqs = new HashMap<String, Float>();
-	public HashMap<String, String> eKey = new HashMap<String, String>();
+	public static HashMap<String, Float> playerFreqs = new HashMap<String, Float>();
+	public static HashMap<String, String> eKey = new HashMap<String, String>();
 	private String[] alphanumeric = new String[]{"a","b","c","d","e","f","g","h","i","k","j","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z",
 			"1","2","3","4","5","6","7","8","9","0",
 			"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
 	
 	public RadioPluginCommandExecuter (RadioPlugin actPlugin) {
 		plugin = actPlugin;
+
 	}
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args){
