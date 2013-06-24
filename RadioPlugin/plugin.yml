@@ -1,6 +1,6 @@
 name: RadioPlugin
 main: io.github.LilParker.RadioPlugin.RadioPlugin
-version: 0.1
+version: 1
 authors: [Lil_Parker, Jet_Fusion]
 
 commands:
