@@ -12,7 +12,7 @@ public class RadioPluginCommandExecuter implements CommandExecutor {
 	RadioPlugin plugin;
 	public HashMap<String, Float> playerFreqs = new HashMap<String, Float>();
 	public HashMap<String, String> eKey = new HashMap<String, String>();
-	private String[] alphanumeric = new String[]{"a","b","c","d","e","f","g","h","i","k","j","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"};
+	private String[] alphanumeric = new String[]{"a","b","c","d","e","f","g","h","i","k","j","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z",""};
 	
 	public RadioPluginCommandExecuter (RadioPlugin actPlugin) {
 		plugin = actPlugin;
@@ -64,7 +64,7 @@ public class RadioPluginCommandExecuter implements CommandExecutor {
 				return false;
 			}
 		}
-		if (cmd.getName().equalsIgnoreCase("setEKey")){
+		if (cmd.getName().equalsIgnoreCase("setekey")){
 			if (sender instanceof Player){
 				if (args.length==1){
 					if(((Player) sender).getItemInHand().getTypeId() == plugin.getConfig().getInt("radioitemid")){
@@ -74,11 +74,11 @@ public class RadioPluginCommandExecuter implements CommandExecutor {
 							return true;
 							}else{
 							eKey.put(sender.getName(), null);
-							sender.sendMessage("Your encription key has been cleared");
+							sender.sendMessage("Your encryption key has been cleared");
 							return true;
 							}
 						}else{
-						sender.sendMessage("You must have a radio in your hand to do this!");
+						sender.sendMessage("You must have a radio in your hand to do this");
 						return true;
 						}
 					}else{
@@ -90,6 +90,25 @@ public class RadioPluginCommandExecuter implements CommandExecutor {
 					return true;
 				}
 			}
+		if(cmd.getName().equalsIgnoreCase("getekey")){
+			if (sender instanceof Player){
+				if(((Player) sender).getItemInHand().getTypeId() == plugin.getConfig().getInt("radioitemid")){
+					if(eKey.get(sender.getName()) != null){
+						sender.sendMessage("Your radio encryption key is " + eKey.get(sender.getName()));
+						return true;
+					}else{
+						sender.sendMessage("You don't have an encryption key right now");
+						return true;
+					}
+				}else{
+					sender.sendMessage("You must have a radio in your hand to check it's encryption key");
+					return true;
+				}
+			}else{
+				sender.sendMessage("You must be a player to use this command");
+				return true;
+			}
+		}
 		if(cmd.getName().equalsIgnoreCase("radio")){
 			if(sender instanceof Player){
 				if(((Player) sender).getItemInHand().getTypeId() == plugin.getConfig().getInt("radioitemid")){
@@ -106,7 +125,7 @@ public class RadioPluginCommandExecuter implements CommandExecutor {
 							if(playerFreq == playerFreqs.get(sender.getName())){
 									if(eKey.get(sender.getName()) != null){
 										if(enKey != null && enKey.equals(eKey.get(sender.getName()))){
-											message = plugin.getConfig().getString("radioencryptedcolor") + message;
+											message = plugin.getConfig().getString("radioencryptedcolor") + "[E]" + message;
 											player.sendMessage(message);
 									}else if(enKey != eKey.get(sender.getName())){
 										Random randGen = new Random();
@@ -114,7 +133,7 @@ public class RadioPluginCommandExecuter implements CommandExecutor {
 										for(String messagePart : args){
 											msg = msg + " " + messagePart;
 										}
-										String scrambledMessage = plugin.getConfig().getString("radioencryptedcolor") + "[FREQ: " + playerFreqs.get(sender.getName()) + "] " + sender.getName() + ": ";
+										String scrambledMessage = plugin.getConfig().getString("radioencryptedcolor") + "[E]" + "[FREQ: " + playerFreqs.get(sender.getName()) + "] " + sender.getName() + ": ";
 										for(char ch : msg.toCharArray()){
 											if(ch != ' '){
 											int randInt = randGen.nextInt(alphanumeric.length);

@@ -10,6 +10,7 @@ public class RadioPlugin extends JavaPlugin {
 		getCommand("getfreq").setExecutor(executer);
 		getCommand("setfreq").setExecutor(executer);
 		getCommand("radio").setExecutor(executer);
-		getCommand("setEKey").setExecutor(executer);
+		getCommand("setekey").setExecutor(executer);
+		getCommand("getekey").setExecutor(executer);
 	}
 }

@@ -17,6 +17,10 @@ commands:
     usage: /r (message)
     aliases: r
     
-  setEKey:
+  setekey:
     description: Set your radio encryption key. Use "/setekey" clear to clear your encription key.
-    usage: /setEkey (key)
+    usage: /setekey (key)
+  
+  getekey:
+    description: Get your current encryption key
+    usage: /getekey
