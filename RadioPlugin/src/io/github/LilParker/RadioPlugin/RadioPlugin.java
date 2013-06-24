@@ -1,6 +1,7 @@
 package io.github.LilParker.RadioPlugin;
 
-import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -8,6 +9,17 @@ public class RadioPlugin extends JavaPlugin {
 	
 	@Override
 	public void onEnable () {
+		
+		Map<String, Object> configmap = getConfig().getConfigurationSection("playerFreqs").getValues(false);
+		for(Entry entry : configmap.entrySet()){
+			Double val = (Double)entry.getValue();
+			RadioPluginCommandExecuter.playerFreqs.put((String) entry.getKey(), val.floatValue());
+		}
+		
+		Map<String, Object> eKeymap = getConfig().getConfigurationSection("eKey").getValues(false);
+		for(Entry entry : eKeymap.entrySet()){
+			RadioPluginCommandExecuter.eKey.put((String) entry.getKey(), (String) entry.getValue());
+		}
 		
 		RadioPluginCommandExecuter executer = new RadioPluginCommandExecuter(this);
 		
@@ -21,10 +33,8 @@ public class RadioPlugin extends JavaPlugin {
 
 	@Override	
 	public void onDisable () {
-		getLogger().info(RadioPluginCommandExecuter.eKey.toString());
+		getConfig().createSection("playerFreqs", RadioPluginCommandExecuter.playerFreqs);
 		getConfig().createSection("eKey", RadioPluginCommandExecuter.eKey);
-		String test = ((HashMap<String, String>)getConfig().getConfigurationSection("eKey")).toString();
-		getLogger().info(test);
 		saveConfig();
 	}
 }
