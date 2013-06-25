@@ -24,3 +24,11 @@ commands:
   getekey:
     description: Get your current encryption key
     usage: /getekey
+    
+  settag:
+    description: Set your radio tag
+    usage: /settag (tag)
+    
+  gettag:
+    description: Get your current radio tag
+    usage: /gettag
