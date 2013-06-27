@@ -2,6 +2,7 @@ name: RadioPlugin
 main: io.github.LilParker.RadioPlugin.RadioPlugin
 version: 1
 authors: [Lil_Parker, Jet_Fusion]
+depends: [Essentials]
 
 commands:
   setfreq:
@@ -32,3 +33,11 @@ commands:
   gettag:
     description: Get your current radio tag
     usage: /gettag
+    
+  setvol:
+    description: Set your radio's volume. Must be a interger (No decimal)
+    usage: /setvol (volume)
+    
+  getvol:
+    description: Get your radio's current volume
+    usage: /getvol

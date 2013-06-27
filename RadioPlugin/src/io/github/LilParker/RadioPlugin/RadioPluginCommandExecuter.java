@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 public class RadioPluginCommandExecuter implements CommandExecutor {
 	
 	RadioPlugin plugin;
+	RadioVolume volClass;
 	public static HashMap<String, Float> playerFreqs = new HashMap<String, Float>();
 	public static HashMap<String, String> eKey = new HashMap<String, String>();
 	private String[] alphanumeric = new String[]{"a","b","c","d","e","f","g","h","i","k","j","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z",
@@ -18,6 +19,7 @@ public class RadioPluginCommandExecuter implements CommandExecutor {
 	
 	public RadioPluginCommandExecuter (RadioPlugin actPlugin) {
 		plugin = actPlugin;
+		volClass = new RadioVolume(plugin);
 
 	}
 	
@@ -118,11 +120,13 @@ public class RadioPluginCommandExecuter implements CommandExecutor {
 				if(playerFreqs.get(sender.getName()) != null){
 					if(SendTag.tag.get(sender.getName()) != null){
 					String message = "[FREQ: " + playerFreqs.get(sender.getName()) + "] " + SendTag.tag.get(sender.getName()) + ": ";
+					String volMessage = null;
 					for(String messagePart : args){
+						volMessage = volMessage + " " + messagePart;
 						message = message + " " + messagePart;
 					}
-					Player[] playerList = Bukkit.getOnlinePlayers();
-					for(Player player : playerList){
+					volClass.RadioSendHear(volMessage, (Player) sender);
+					for(Player player : Bukkit.getOnlinePlayers()){
 						if(playerFreqs.get(player.getName()) != null && player.getInventory().contains(plugin.getConfig().getInt("radioitemid"))){
 							float playerFreq = playerFreqs.get(player.getName());
 							String enKey = eKey.get(player.getName());
@@ -137,6 +141,7 @@ public class RadioPluginCommandExecuter implements CommandExecutor {
 										for(String messagePart : args){
 											msg = msg + " " + messagePart;
 										}
+										
 										String scrambledMessage = plugin.getConfig().getString("radioencryptedcolor") + "[E]" + "[FREQ: " + playerFreqs.get(sender.getName()) + "] " + SendTag.tag.get(sender.getName()) + ": ";
 										for(char ch : msg.toCharArray()){
 											if(ch != ' '){
