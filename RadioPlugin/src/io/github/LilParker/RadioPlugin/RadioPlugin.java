@@ -3,6 +3,7 @@ package io.github.LilParker.RadioPlugin;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.bukkit.command.CommandExecutor;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class RadioPlugin extends JavaPlugin {
@@ -30,11 +31,11 @@ public class RadioPlugin extends JavaPlugin {
 		for(Entry<String, Object> entry : tagMap.entrySet()){
 			SendTag.tag.put((String) entry.getKey(), (String) entry.getValue());
 			}
-		}
-		
+		}	
 		RadioPluginCommandExecuter executer = new RadioPluginCommandExecuter(this);
-		EssentialsUtils eutils = new EssentialsUtils(this);
+		EssentialsUtils utils = new EssentialsUtils(this);
 		SendTag tagsender = new SendTag(this);
+		RadioVolume volume = new RadioVolume(this);
 		
 		getCommand("getfreq").setExecutor(executer);
 		getCommand("setfreq").setExecutor(executer);
@@ -43,6 +44,7 @@ public class RadioPlugin extends JavaPlugin {
 		getCommand("getekey").setExecutor(executer);
 		getCommand("settag").setExecutor(tagsender);
 		getCommand("gettag").setExecutor(tagsender);
+		getCommand("setvol").setExecutor(volume);
 	
 	}
 

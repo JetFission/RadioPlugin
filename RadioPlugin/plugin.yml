@@ -1,6 +1,6 @@
 name: RadioPlugin
 main: io.github.LilParker.RadioPlugin.RadioPlugin
-version: 1
+version: 1.2
 authors: [Lil_Parker, Jet_Fusion]
 depends: [Essentials]
 
